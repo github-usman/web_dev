@@ -1,0 +1,42 @@
+/* AA80F3 */
+
+
+
+*{
+    text-align: center;
+}
+.title{
+    background-color: #aa80f3;
+    color: white;
+    padding: 25px;
+}
+
+a{
+    color:white;
+    text-decoration: none;
+}
+.no_bullets{
+
+    list-style-type: none;
+}
+li{
+    margin-right: 2%;
+    display: inline;
+    padding: 10px;
+}
+
+
+button{
+    background-color: #aa80f3;
+    border-style: none;
+    padding: 13px 28px;
+    border-radius: 8px;
+    color: white;
+}
+
+footer{
+    background-color: #aa80f3;
+    margin-top: 10px;
+    padding: 30px;
+    color: white;
+}
