@@ -1,0 +1,29 @@
+
+
+
+
+.Rel{
+    background-color: yellow;
+    height: 800px;
+    width: 800px;
+
+    margin-bottom: 800px;
+}
+
+.Rel .descen1{
+    position: absolute;
+    background-color: blue;
+    height: 400px;
+    width: 400px;
+    margin-left: 20px;
+     margin-top: 20px;
+}
+
+.Rel .descen1 .descen2{
+    position: static;
+    background-color: green;
+    height: 200px;
+    width: 200px;
+    margin-left: 20px;
+    margin-top: 20px;
+}
