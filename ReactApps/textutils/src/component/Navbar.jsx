@@ -1,10 +1,14 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
+
 
 export default function Navbar(props) {
+
+
+
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav className={`navbar navbar-expand-lg navbar-${(props.mode === 'Enable Dark Mode'?'light':'dark')} bg-${(props.mode === 'Enable Dark Mode'?'light':'dark')}`}>
         <div className="container-fluid">
           <a className="navbar-brand" href="/">
             {props.logo}
@@ -20,6 +24,7 @@ export default function Navbar(props) {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
+
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
@@ -32,6 +37,20 @@ export default function Navbar(props) {
                   {props.about}
                 </a>
               </li>
+
+              {/* dark mode  */}
+              <div className={`form-check form-switch my-2 mx-20 text-${props.mode==='Enable Dark Mode'?'dark':'light'}`} >
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  role="switch"
+                  id="flexSwitchCheckDefault"
+                  onClick={props.toggle}
+                />
+                <label className="form-check-label" htmlFor="flexSwitchCheckDefault">
+                  {props.mode}
+                </label>
+              </div>
             </ul>
             <form className="d-flex">
               <input
@@ -40,6 +59,7 @@ export default function Navbar(props) {
                 placeholder="Search"
                 aria-label="Search"
               />
+
               <button className="btn btn-primary" type="submit">
                 Search
               </button>
@@ -48,17 +68,16 @@ export default function Navbar(props) {
         </div>
       </nav>
     </>
-  )
+  );
 }
 
 Navbar.propTypes = {
-  logo:PropTypes.string.isRequired,
-  home:PropTypes.string,
-  about:PropTypes.string
-
-}
+  logo: PropTypes.string.isRequired,
+  home: PropTypes.string,
+  about: PropTypes.string,
+};
 
 Navbar.defaultProps = {
-  logo:"Set logo Title",
-  home:"Home text here"
-}
+  logo: "Set logo Title",
+  home: "Home text here",
+};
