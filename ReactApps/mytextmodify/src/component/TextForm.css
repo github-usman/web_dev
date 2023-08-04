@@ -1,0 +1,16 @@
+
+.text_footer{
+    display: flex;
+    justify-content: center;
+    margin-top: 10%;
+    bottom: 0px;
+}
+.textarea_bg_dark{
+    background-color: #15202B !important;
+    color: rgb(182, 182, 163) !important;
+}
+
+.textarea_bg_light{
+    background-color: #ebeef1  !important;
+    color: rgb(5, 5, 5) !important; 
+}
