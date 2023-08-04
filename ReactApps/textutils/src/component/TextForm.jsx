@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import copy from "copy-to-clipboard";
 import './TextForm.css';
+import Footer from "./Footer";
 
 export default function TextForm(props) {
   const [text, setText] = useState("");
@@ -99,6 +100,10 @@ export default function TextForm(props) {
       <div className="container my-3">
         <h2 className="text-warning">{text.length>0?'Preview':'Enter Your text above to Preview here'}</h2>
         <p>{text}</p>
+      </div>
+
+       <div className="text_footer">
+      <Footer mode={props.mode}/>
       </div>
     </>
   );
