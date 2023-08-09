@@ -1,0 +1,26 @@
+<%-include('./partials/header')%>
+<div class="publish_conatainer">
+   <form action="/compose" method="post">
+   <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Title</label>
+      <input  name="titleInput" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Write your title here">
+    </div>
+    <div class="mb-3">
+      <label  for="exampleFormControlTextarea1" class="form-label">Post</label>
+      <textarea  name="postInput"  class="form-control" id="exampleFormControlTextarea1" rows="8" placeholder="Write your post here or paste here"></textarea>
+    </div>
+    <button type="submit" class="btn btn_color">Publish</button>
+
+   </form>
+   </div>
+   
+
+     
+
+
+</form>
+   
+</div>
+
+
+<%- include('./partials/footer')%>

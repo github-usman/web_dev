@@ -1,0 +1,16 @@
+<%-include('./partials/header')%>
+<div class="body_blog">
+<div class="container">
+  <h1>Home</h1>
+  <p><%= homeContent %></p> 
+</div>
+<p><%#= {posts} %></p> 
+
+<% posts.forEach( (Element)=>{ %>
+ <h1><%= Element.title %></h1>
+ <p><%= Element.message %></p>
+<%});%>
+</div>
+<%- include('./partials/footer')%>
+
+
