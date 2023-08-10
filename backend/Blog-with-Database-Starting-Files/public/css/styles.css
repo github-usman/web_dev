@@ -79,6 +79,32 @@ nav{
 }
 
 ion-icon{
-  color: rgb(239, 241, 239);
+  padding: 15%;
   font-size:32px;
+
 }
+
+ion-icon:hover{
+  color: #272829;
+  background-color: #FFF6E0;
+  border-radius: 8px;
+  padding: 15%;
+
+
+}
+
+.mode{
+  background-color: #272829;
+  border-style: none;
+
+}
+span{
+  margin-bottom: 50%;
+}
+
+.container_posts{
+  text-align: left;
+  word-wrap: break-word;
+}
+
+

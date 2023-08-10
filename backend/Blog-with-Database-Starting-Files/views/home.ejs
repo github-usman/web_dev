@@ -8,7 +8,11 @@
 
 <% posts.forEach( (Element)=>{ %>
  <h1><%= Element.title %></h1>
- <p><%= Element.message %></p>
+<% if((Element.message).length>100){%>
+ <p><%= (Element.message).substring(0,100)+"..." %> <a href="posts/<%=Element.title%>">Read More</a></p>
+ <%}else{%>
+  <p><%= Element.message%></p>
+    <%}%>
 <%});%>
 </div>
 <%- include('./partials/footer')%>

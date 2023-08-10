@@ -3,6 +3,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import ejs from "ejs";
+import _  from 'lodash';
 
 const homeStartingContent =
   "Lacus vel facilisis volutpat est velit egestas dui id ornare. Semper auctor neque vitae tempus quam. Sit amet cursus sit amet dictum sit amet justo. Viverra tellus in hac habitasse. Imperdiet proin fermentum leo vel orci porta. Donec ultrices tincidunt arcu non sodales neque sodales ut. Mattis molestie a iaculis at erat pellentesque adipiscing. Magnis dis parturient montes nascetur ridiculus mus mauris vitae ultricies. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Ultrices vitae auctor eu augue ut lectus arcu bibendum at. Odio euismod lacinia at quis risus sed vulputate odio ut. Cursus mattis molestie a iaculis at erat pellentesque adipiscing.";
@@ -28,8 +29,9 @@ let userTitle = "";
 let userMessage = ""
 app.get("/", (req, res) => {
   res.render("./home", { homeContent: aboutContent,year:year,posts:posts});
-
+ 
 });
+
 
 app.get("/about", (req, res) => {
   res.render("./about", { aboutContent: aboutContent,year:year });
@@ -43,7 +45,7 @@ app.get("/compose", (req, res) => {
   res.render("./compose", { homeContent: contactContent,year:year});  
 });
 
- app.post('/compose', (req, res) => {
+app.post('/compose', (req, res) => {
 
    const post = {
       title : req.body.titleInput,
@@ -51,11 +53,56 @@ app.get("/compose", (req, res) => {
 
    } 
   
-   posts.push(post);
+      posts.push(post);
   // console.log(userInput.message);
   // res.render("./home", { homeContent: homeStartingContent,year:year,userTitle:userInput.title,userMessage:userInput.message});
   res.redirect('/');
-})
+});
+
+
+// dynamic URL
+
+app.get("/posts/:topic",(req,res)=>{
+   
+
+  posts.forEach((post)=>{
+     
+    if(_.lowerCase(req.params.topic) === _.lowerCase(post.title)){
+      // console.log("matched");
+      res.render("./partials/post", {
+         title:post.title,
+         content:post.message,
+         year:year
+        });  
+    }
+  });
+ 
+  res.redirect("/posts");
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -64,3 +111,7 @@ app.get("/compose", (req, res) => {
 app.listen(port, function () {
   console.log(`Server started on port http://localhost:${port}/`);
 });
+
+// app.listen(port, '192.168.43.81', ()=>{
+//   console.log(`Listening port on ${port}`)
+// });
