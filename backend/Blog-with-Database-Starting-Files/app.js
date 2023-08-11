@@ -1,150 +1,115 @@
-//jshint esversion:6
 
 import express from "express";
 import bodyParser from "body-parser";
 import ejs from "ejs";
-import _  from 'lodash';
+import _ from "lodash";
 import mongoose from "mongoose";
-
-const homeStartingContent =
-  "Lacus vel facilisis volutpat est velit egestas dui id ornare. Semper auctor neque vitae tempus quam. Sit amet cursus sit amet dictum sit amet justo. Viverra tellus in hac habitasse. Imperdiet proin fermentum leo vel orci porta. Donec ultrices tincidunt arcu non sodales neque sodales ut. Mattis molestie a iaculis at erat pellentesque adipiscing. Magnis dis parturient montes nascetur ridiculus mus mauris vitae ultricies. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Ultrices vitae auctor eu augue ut lectus arcu bibendum at. Odio euismod lacinia at quis risus sed vulputate odio ut. Cursus mattis molestie a iaculis at erat pellentesque adipiscing.";
-const aboutContent =
-  "Hac habitasse platea dictumst vestibulum rhoncus est pellentesque. Dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Non diam phasellus vestibulum lorem sed. Platea dictumst quisque sagittis purus sit. Egestas sed sed risus pretium quam vulputate dignissim suspendisse. Mauris in aliquam sem fringilla. Semper risus in hendrerit gravida rutrum quisque non tellus orci. Amet massa vitae tortor condimentum lacinia quis vel eros. Enim ut tellus elementum sagittis vitae. Mauris ultrices eros in cursus turpis massa tincidunt dui.";
-const contactContent =
-  "Scelerisque eleifend donec pretium vulputate sapien. Rhoncus urna neque viverra justo nec ultrices. Arcu dui vivamus arcu felis bibendum. Consectetur adipiscing elit duis tristique. Risus viverra adipiscing at in tellus integer feugiat. elis bibendum. Consectetur adipiscing elit duis tristique. Risus viverra adipiscing at in tellus integer feugiat. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. Consequat interdum varius sit amet mattis. Iaculis nunc sed augue lacus. Interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit. Pulvinar elementum integer enim neque. Ultrices gravida dictum fusce ut placerat orci nulla. Mauris in aliquam sem fringilla ut morbi tincidunt. Tortor posuere ac ut consequat semper viverra nam libero.";
-
+ 
+const homeStartingContent = "Lacus vel facilisis volutpat est velit egestas dui id ornare. Semper auctor neque vitae tempus quam. Sit amet cursus sit amet dictum sit amet justo. Viverra tellus in hac habitasse. Imperdiet proin fermentum leo vel orci porta. Donec ultrices tincidunt arcu non sodales neque sodales ut. Mattis molestie a iaculis at erat pellentesque adipiscing. Magnis dis parturient montes nascetur ridiculus mus mauris vitae ultricies. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Ultrices vitae auctor eu augue ut lectus arcu bibendum at. Odio euismod lacinia at quis risus sed vulputate odio ut. Cursus mattis molestie a iaculis at erat pellentesque adipiscing.";
+const aboutContent = "Hac habitasse platea dictumst vestibulum rhoncus est pellentesque. Dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Non diam phasellus vestibulum lorem sed. Platea dictumst quisque sagittis purus sit. Egestas sed sed risus pretium quam vulputate dignissim suspendisse. Mauris in aliquam sem fringilla. Semper risus in hendrerit gravida rutrum quisque non tellus orci. Amet massa vitae tortor condimentum lacinia quis vel eros. Enim ut tellus elementum sagittis vitae. Mauris ultrices eros in cursus turpis massa tincidunt dui.";
+const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rhoncus urna neque viverra justo nec ultrices. Arcu dui vivamus arcu felis bibendum. Consectetur adipiscing elit duis tristique. Risus viverra adipiscing at in tellus integer feugiat. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. Consequat interdum varius sit amet mattis. Iaculis nunc sed augue lacus. Interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit. Pulvinar elementum integer enim neque. Ultrices gravida dictum fusce ut placerat orci nulla. Mauris in aliquam sem fringilla ut morbi tincidunt. Tortor posuere ac ut consequat semper viverra nam libero.";
+ 
 const app = express();
-const port = 3000;
-
-app.set("view engine", "ejs");
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+ 
+app.set('view engine', 'ejs');
+ 
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
-
-
-// let posts = [];
-// connect to mongoDB
-mongoose.connect('mongodb://127.0.0.1:27017/test');
-// schema
-const post = new mongoose.Schema({
-  title: String,
-  message: String
-
+ 
+ 
+//Connecting to the database using mongoose.
+ main().catch(err => console.log(err));
+async function main() {
+  await mongoose.connect('mongodb://127.0.0.1:27017/blogDB');
+}
+ 
+//Creating an empty array but we are not using it in this version of the app.
+// const posts = [];
+ 
+ 
+//Creating Schema for the posts 
+const postSchema = new mongoose.Schema({
+  title : String,
+  content: String,
 });
-
-const Blog = mongoose.model('Blog',post);
-
-const Day_one = new Blog({
-  title:'One Day',
-  message:"honcus est pellentesque. Dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Non diam phasellus vestibulum lorem sed. Platea dictumst quisque sagittis purus sit. Egestas sed sed risus pretium quam vulputate dignissim suspendisse. Mauris in aliquam sem fringilla. Semper risus in hendrerit gravida rutrum quisque non tellus orci. Amet massa vitae tortor condimentum lacinia quis vel eros. Enim ut tellus elementum sagittis vitae. Mauris ultrices eros in cursus turpis massa tincidunt dui."
-})
-
-// Day_one.save();
-
-console.log(Day_one.title);
-
-
-
-const year = new Date().getFullYear();
-let userTitle = "";
-let userMessage = ""
-app.get("/", (req, res) => {
-  res.render("./home", { homeContent: aboutContent,year:year,posts:Day_one});
+ 
+ 
+//Creating a mongoose model based on this Schema :
+ 
+const Post = mongoose.model("Post",postSchema);
+let year = new Date().getFullYear();
+app.get("/", function(req, res) {
+ 
+  // Find all items in the Posts collection and render it into our home page.
+ Post.find().then(posts =>{
+      res.render("home", {
+        homeContent: homeStartingContent,
+        posts: posts,
+        year:year
+        });
+    });
+});
+ 
+app.get("/about", function(req, res){
+  res.render("about", {aboutContent: aboutContent,year:year});
+});
+ 
+app.get("/contact", function(req, res){
+  res.render("contact", {contactContent: contactContent,year:year});
+});
+ 
+app.get("/compose", function(req, res){
+  res.render("compose",{year:year});
+ 
+ });
+ 
+ //Saved the title and the post into our blogDB database.
+app.post("/compose", function(req, res){
+  const post = new Post({
+    title:req.body.titleInput,
+    content:req.body.postInput
+  })
+ 
+  //We are saving the post through our compose route and redirecting back into the home route. A message will be displayed in our console when a post is being saved.
+ 
+  post.save().then(() => {
+ 
+    console.log('Post added to DB.');
+ 
+    res.redirect('/');
+ 
+  })
+ 
+  .catch(err => {
+ 
+    res.status(400).send("Unable to save post to database.");
+ 
+  });
+ 
  
 });
-
-
-app.get("/about", (req, res) => {
-  res.render("./about", { aboutContent: aboutContent,year:year });
-});
-
-app.get("/contact", (req, res) => {
-  res.render("./contact", { contactContent: contactContent,year:year });
-});
-
-app.get("/compose", (req, res) => {
-  res.render("./compose", { homeContent: contactContent,year:year});  
-});
-
-app.post('/compose', (req, res) => {
-
-  //  const post = {
-  //     title : req.body.titleInput,
-  //     message : req.body.postInput
-
-  //  } 
-    if(req.body.titleInput !== ""){
-      const Day_one = new Blog({
-        title:req.body.titleInput,
-        message:req.body.postInput
-      })
-
-      Day_one.save();
-    }
-  
-   
-  
-      // posts.push(post);
-     
-  res.redirect('/');
-});
-
-
-// dynamic URL
-
-app.get("/posts/:topic",(req,res)=>{
-  console.log("not Matched");
-
-  // posts.forEach((post)=>{
-     
-    if(_.lowerCase(req.params.topic) === _.lowerCase(Day_one.title)){
-      // console.log("matched");
-      res.render("./partials/post", {
-         title:Day_one.title,
-         content:Day_one.message,
-         year:year
-        });  
-    }else{
-      console.log("not Matched");
-    }
-  // });
  
-  res.redirect("/posts");
+app.get("/posts/:postId", function(req, res){
+  //We are storing the _id of our created post in a variable named requestedPostId
+  const requestedPostId = req.params.postId;
+ 
+  //Using the find() method and promises (.then and .catch), we have rendered the post into the designated page.
+ 
+  Post.findOne({_id:requestedPostId})
+  .then(function (post) {
+    res.render("./partials/post", {
+            title: post.title,
+            content: post.content,
+            year:year
+          });
+    })
+    .catch(function(err){
+      console.log(err);
+    })
+ 
+ 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-app.listen(port, function () {
-  console.log(`Server started on port http://localhost:${port}/`);
+ 
+app.listen(3000, function() {
+  console.log("Server started on port 3000");
 });
-
-// app.listen(port, '192.168.43.81', ()=>{
-//   console.log(`Listening port on ${port}`)
-// });
