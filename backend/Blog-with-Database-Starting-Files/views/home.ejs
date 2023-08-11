@@ -6,14 +6,11 @@
 </div>
 <p><%#= {posts} %></p> 
 
-<% posts.forEach( (Element)=>{ %>
- <h1><%= Element.title %></h1>
-<% if((Element.message).length>100){%>
- <p><%= (Element.message).substring(0,100)+"..." %> <a href="posts/<%=Element.title%>">Read More</a></p>
- <%}else{%>
-  <p><%= Element.message%></p>
-    <%}%>
-<%});%>
+<%# posts.forEach( (Element)=>{ %>
+ <h1><%= posts.title %></h1>
+<%# if((Element.message).length>100){%>
+ <p><%= (posts.message).substring(0,100)+"..." %> <a href="posts/<%=posts.title%>">Read More</a></p>
+ 
 </div>
 <%- include('./partials/footer')%>
 
