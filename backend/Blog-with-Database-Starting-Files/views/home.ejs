@@ -1,17 +1,18 @@
-<%-include('./partials/header')%>
-<div class="body_blog">
-<div class="container">
-  <h1>Home</h1>
-  <p><%= homeContent %></p> 
-</div>
-<p><%#= {posts} %></p> 
-
-<%# posts.forEach( (Element)=>{ %>
- <h1><%= posts.title %></h1>
-<%# if((Element.message).length>100){%>
- <p><%= (posts.message).substring(0,100)+"..." %> <a href="posts/<%=posts.title%>">Read More</a></p>
+<%- include("partials/header"); -%>
+    <h1>Home</h1>
+    <p> <%= homeContent %> </p>
  
-</div>
-<%- include('./partials/footer')%>
-
-
+ 
+  <%  posts.forEach(function(post){ %>
+ 
+    <h1 class="title_home"><%=post.title%></h1>
+    <p>
+    <%=post.content.substring(0, 100) + " ..."%>
+    <a href="/posts/<%=post._id%>">Read More</a>
+    </p>
+ 
+ 
+    <% }) %>
+ 
+ 
+<%- include("partials/footer"); -%>
